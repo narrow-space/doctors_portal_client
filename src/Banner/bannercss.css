@@ -1,0 +1,22 @@
+/* @media only screen and (max-width: 500px) {
+
+  .banner-div{
+    margin-top:-100px;
+
+  }
+
+   .pic{
+    width:374px;
+    height:223px ;
+    margin-bottom:50px;
+   
+   }
+  }
+
+  @media only screen and (min-width:501px ) {
+    .pic{
+     width:594px;
+     height:355px ;
+    
+    }
+   } */
