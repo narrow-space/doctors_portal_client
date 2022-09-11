@@ -14,11 +14,12 @@ import Loader from "../Shared/Loader";
 import { toast } from "material-react-toastify";
 import useToken from "../../Hooks/useToken";
 import axios from "axios";
+import { Line, Circle } from 'rc-progress';
+
 const Register = () => {
-  
   const [image, setImage] = useState(null);
   const [url, setUrl] = useState(null);
-  const [percentage, setPercentage] = useState(0);
+  const [percentage, setPercentage] = useState();
   const [updateProfile, updating] = useUpdateProfile(auth);
 
   const [signInWithGoogle, gUser, gLoading] = useSignInWithGoogle(auth);
@@ -28,9 +29,7 @@ const Register = () => {
 
   const navigate = useNavigate();
 
- 
   const [token] = useToken(user || gUser);
-
 
   const { register, handleSubmit, formState } = useForm({
     mode: "onChange", // I want to change it to onBlur
@@ -52,8 +51,10 @@ const Register = () => {
       uploadTask.on(
         "state_changed",
         (snapshot) => {
+
+          
           const progress =
-            Math.round(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log(progress);
           setPercentage(progress);
           switch (snapshot.state) {
@@ -70,11 +71,10 @@ const Register = () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             console.log("File available at", downloadURL);
             setUrl(downloadURL);
-            localStorage.setItem("photoURL",downloadURL)
+
             setPercentage(0);
           });
-        },
-       
+        }
       );
     };
     image && uploadImage();
@@ -96,28 +96,26 @@ const Register = () => {
 
   const onSubmit = async (data) => {
     await createUserWithEmailAndPassword(data.email, data.password, data.name);
-    
+
     await updateProfile({ displayName: data.name, photoURL: url });
-    const userInfo={
-      name:data.name,
-      email:data.email,
-      photoURL:url
-    }
+    const userInfo = {
+      name: data.name,
+      email: data.email,
+      photoURL: url,
+    };
 
-    axios.post("https://stormy-tundra-64733.herokuapp.com/alluserlist", userInfo).then(
-      (res) => {
-        const data = res.data;
-        console.log(data);
-       
-      },
+    axios
+      .post("https://stormy-tundra-64733.herokuapp.com/alluserlist", userInfo)
+      .then(
+        (res) => {
+          const data = res.data;
+          console.log(data);
+        },
 
-      (error) => {
-        console.log(error);
-      }
-    );
-    
-
-   
+        (error) => {
+          console.log(error);
+        }
+      );
   };
 
   useEffect(() => {
@@ -147,10 +145,13 @@ const Register = () => {
     console.log(error.message);
   }
 
-  
   if (loading || gLoading || updating) {
     return <Loader />;
   }
+
+  const handleImgsavefromLocalStorage = () => {
+    localStorage.setItem("photoURL", url);
+  };
 
   return (
     <div className="flex justify-center items-center ">
@@ -268,11 +269,9 @@ const Register = () => {
                   </div>
                 )} */}
 
-                {percentage === 0 ? null : (
-                 <div class=" bg-gray-200 rounded-full">
-                 <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style={{width:`${percentage}%`}}>{`Img Uploading${percentage}%`}</div>
-               </div>
-                )}
+                {percentage > 0 && percentage <= 100 ? (
+                   <Line percent={percentage} strokeWidth={4} strokeColor="#0FCFEC" />
+                ) : null}
               </div>
               <div className="flex justify-center">
                 <div className="mb-3 w-96 ">
@@ -301,11 +300,20 @@ const Register = () => {
               {singninErrors}
 
               <button
-                disabled={!isValid || !url}
+                onClick={handleImgsavefromLocalStorage}
+                disabled={
+                  !isValid || !url
+                }
                 type="submit"
-                className="btn dark:btn-close-white w-full max-w-xs"
+                className={`btn dark:btn-close-white w-full max-w-xs ${
+                  percentage > 0 && percentage <= 100 ? "loading" : null
+                }`}
               >
-                Signup
+                {` ${
+                  percentage > 0 && percentage <= 100
+                    ? "Img uploading..."
+                    : "Signup"
+                }`}
               </button>
             </form>
 

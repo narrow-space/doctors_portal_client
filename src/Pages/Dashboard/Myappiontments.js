@@ -6,33 +6,43 @@ import auth from "../../firebase.init";
 import _ from "lodash";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
+import { useQuery } from "react-query";
+import Loader from "../Shared/Loader";
+import Swal from 'sweetalert2'
+import Paginationpage from "../Shared/Paginationpage";
 
-const pageSize = 8;
+
 const Myappiontments = () => {
   const [user] = useAuthState(auth);
-  const [appiontments, setAppiontments] = useState([]);
-  const [paginate, setPaginate] = useState();
-  const [currentPage, setCurrentPage] = useState(1);
+  
   const accesstoken = localStorage.getItem("accesstoken");
   const navigate = useNavigate();
-  console.log(appiontments);
-  useEffect(() => {
-    const url = `https://stormy-tundra-64733.herokuapp.com/booking?email=${user?.email}`;
-    const config = {
-      headers: {
-        Authorization: `Bearer ${accesstoken}`,
-      },
-    };
-    if (user) {
-      axios
-        .get(url, config)
-        .then((res) => {
-          console.log(res);
+  const [showPerPage, setShowPerPage] = useState(2);
+  const [pagination, setPagination] = useState({
+    start: 0,
+    end: showPerPage,
+  });
 
-          setAppiontments(res.data.reverse());
-
-          setPaginate(_(res.data).slice(0).take(pageSize).value());
-        })
+  const onpaginationChange = (start, end) => {
+    setPagination({ start: start, end: end });
+  };
+  const {
+    data: appiontments,
+    isLoading,
+    refetch,
+  } = useQuery(
+    "appiontments",
+    async () =>
+      await fetch(
+        `https://stormy-tundra-64733.herokuapp.com/booking?email=${user?.email}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${accesstoken}`,
+          },
+        }
+      )
+        .then((res) => res.json())
         .catch((err) => {
           if (err.response.status === 401 || err.response.status === 403) {
             //// navigate to home
@@ -43,44 +53,78 @@ const Myappiontments = () => {
             localStorage.removeItem("displayName");
           }
           console.log(err);
+        })
+  );
+  console.log(appiontments);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  
+  
+
+
+
+  const removeAppiontment = (email) => {
+     
+    const swalWithBootstrapButtons = Swal.mixin({
+     
+      customClass: {
+        confirmButton: 'btn btn-success mx-2',
+        cancelButton: 'btn btn-error',
+        
+      },
+      buttonsStyling: false
+    })
+    
+    swalWithBootstrapButtons.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this Appiontment!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+        .delete(`http://localhost:5000/AppiontmentDelete/${email}`)
+        .then(function (response) {
+          // handle success
+         
+          if (response.data.deletedCount > 0){
+            
+            refetch();
+          } 
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+        .then(function () {
+          // always executed
         });
-    }
 
-    // axios
-    //   .get(`https://stormy-tundra-64733.herokuapp.com/booking?email=${user?.email}`,{
-    //     headers: {
-    //       'Authorization': `Bearer ${localStorage.getItem('accesstoken')}`
-    //     }
-    //   })
-    //   .then(function (response) {
-    //     // handle success
-    //     console.log(response);
-    //     setAppiontments(response.data);
-    //     setPaginate(_(response.data).slice(0).take(pageSize).value());
-    //   })
-    //   .catch(function (error) {
-    //     // handle error
-    //     console.log(error);
-    //   })
-    //   .then(function () {
-    //     // always executed
-    //   });
-  }, [user, accesstoken]);
+        swalWithBootstrapButtons.fire(
+          'Deleted!',
+          'Your Appiontment delete Successfully.',
+          'success'
+        )
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelled',
+          'Your Appiontment is safe 😄',
+          'error'
+        )
+      }
+    })
 
-  const pageCount = appiontments
-    ? Math.ceil(appiontments.length / pageSize)
-    : 0;
-  if (pageCount === 1) return null;
-
-  const pages = _.range(1, pageCount + 1);
-
-  const pagination = (pageNo) => {
-    setCurrentPage(pageNo);
-    const startIndex = (pageNo - 1) * pageSize;
-
-    const paginate = _(appiontments).slice(startIndex).take(pageSize).value();
-    console.log(paginate);
-    setPaginate(paginate);
+    
+   
   };
 
   return (
@@ -124,7 +168,7 @@ const Myappiontments = () => {
                 </tr>
               </thead>
               <tbody className=" dark:text-white  ">
-                {paginate?.map((a, index) => (
+                {appiontments.slice(pagination.start, pagination.end).map((a, index) => (
                   <>
                     <tr key={index} class="dark:border-b border-secondary ">
                       <td class="px-6 py-4 whitespace-nowrap text-sm font-medium ">
@@ -142,6 +186,14 @@ const Myappiontments = () => {
                       <td class="text-sm  font-light px-6 py-4 whitespace-nowrap">
                         {a.number}
                       </td>
+                      <td class="text-sm  font-light px-6 py-4 whitespace-nowrap">
+                        <button
+                          onClick={() => removeAppiontment(a.email)}
+                          className="btn btn-xs btn-accent"
+                        >
+                          Delete Appiontment
+                        </button>
+                      </td>
                     </tr>
                   </>
                 ))}
@@ -150,20 +202,11 @@ const Myappiontments = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center ">
-        <div className="btn-group mt-7">
-        
-          {pages?.map((page) => (
-            <button
-              data-theme="winter"
-              onClick={() => pagination(page)}
-              className={page === currentPage ? "btn btn-active" : "btn"}
-            >
-              {page}
-            </button>
-          ))}
-        </div>
-      </div>
+     <Paginationpage
+     showPerPage={showPerPage}
+     onpaginationChange={onpaginationChange}
+     total={appiontments?.length}
+     ></Paginationpage>
     </div>
   );
 };

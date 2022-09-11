@@ -8,7 +8,7 @@ import Userrow from "./Userrow";
 
 const Alluser = () => {
   const accesstoken = localStorage.getItem("accesstoken");
-  const [showPerPage, setShowPerPage] = useState(5);
+  const [showPerPage, setShowPerPage] = useState(2);
   const [pagination, setPagination] = useState({
     start: 0,
     end: showPerPage,
@@ -17,7 +17,7 @@ const Alluser = () => {
   const onpaginationChange = (start, end) => {
     setPagination({ start: start, end: end });
   };
-  const { data, isLoading,refetch } = useQuery("users", async(currentpage) =>
+  const { data, isLoading,refetch } = useQuery("users", async() =>
     await fetch('https://stormy-tundra-64733.herokuapp.com/alluser', {
       method: "GET",
       headers: {

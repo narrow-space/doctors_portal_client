@@ -6,6 +6,7 @@ const Paginationpage = ({ showPerPage, onpaginationChange, total }) => {
   const [numberOfButtons, setNumberOfButtons] = useState(
     Math.ceil(total / showPerPage)
   );
+  console.log(total);
  
   useEffect(() => {
     const value = showPerPage * counter;
@@ -32,21 +33,21 @@ const Paginationpage = ({ showPerPage, onpaginationChange, total }) => {
   return (
     <div className="flex justify-center items-center mt-8">
       <div className="btn-group ">
-        <button
+        {/* <button
           data-theme="halloween"
           onClick={() => ButtonType("prev")}
           className="btn btn-active mx-3"
         >
           Previous page
-        </button>
+        </button> */}
       </div>
       <div className="btn-group ">
-        { new Array(numberOfButtons).fill("").map((el, index) => (
+        { new Array(numberOfButtons).fill(" ").map((el, index) => (
           <button
             onClick={() => setCounter(index + 1)}
-            data-theme="halloween"
-            className={`btn btn-md ${
-              index + 1 === counter ? "btn-active" : null
+           
+            className={`btn btn-sm  ${
+              index + 1 === counter ? "btn-accent" : null
             }`}
           >
             {index + 1}
@@ -54,13 +55,13 @@ const Paginationpage = ({ showPerPage, onpaginationChange, total }) => {
         ))}
       </div>
       <div className="btn-group grid grid-cols-1 mx-3">
-        <button
+        {/* <button
           data-theme="halloween"
           onClick={() => ButtonType("next")}
           className="btn btn-md btn-active"
         >
           Next
-        </button>
+        </button> */}
       </div>
     </div>
   );
