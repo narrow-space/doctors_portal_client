@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 
-const Paginationpage = ({ showPerPage, onpaginationChange, total }) => {
+const Paginationpage = ({ showPerPage, onpaginationChange, total,refetch }) => {
   const [counter, setCounter] = useState(1);
   const [numberOfButtons, setNumberOfButtons] = useState(
     Math.ceil(total / showPerPage)
@@ -14,6 +14,8 @@ const Paginationpage = ({ showPerPage, onpaginationChange, total }) => {
     onpaginationChange(value - showPerPage, value);
   }, [counter]);
 
+   
+
   const ButtonType = (type) => {
     if (type === "prev") {
       if (counter === 1) {
@@ -24,6 +26,7 @@ const Paginationpage = ({ showPerPage, onpaginationChange, total }) => {
     } else if (type === "next") {
       if (numberOfButtons === counter) {
         setCounter(counter);
+        
       } else {
         setCounter(counter + 1);
       }

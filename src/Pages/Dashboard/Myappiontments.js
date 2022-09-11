@@ -89,7 +89,7 @@ const Myappiontments = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-        .delete(`http://localhost:5000/AppiontmentDelete/${email}`)
+        .delete(`https://stormy-tundra-64733.herokuapp.com/AppiontmentDelete/${email}`)
         .then(function (response) {
           // handle success
          
@@ -206,6 +206,7 @@ const Myappiontments = () => {
      showPerPage={showPerPage}
      onpaginationChange={onpaginationChange}
      total={appiontments?.length}
+     refetch={refetch}
      ></Paginationpage>
     </div>
   );

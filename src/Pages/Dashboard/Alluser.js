@@ -8,7 +8,7 @@ import Userrow from "./Userrow";
 
 const Alluser = () => {
   const accesstoken = localStorage.getItem("accesstoken");
-  const [showPerPage, setShowPerPage] = useState(2);
+  const [showPerPage, setShowPerPage] = useState(5);
   const [pagination, setPagination] = useState({
     start: 0,
     end: showPerPage,
