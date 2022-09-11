@@ -104,7 +104,7 @@ const Register = () => {
       photoURL:url
     }
 
-    axios.post("http://localhost:5000/alluserlist", userInfo).then(
+    axios.post("https://stormy-tundra-64733.herokuapp.com/alluserlist", userInfo).then(
       (res) => {
         const data = res.data;
         console.log(data);

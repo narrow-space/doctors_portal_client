@@ -10,7 +10,7 @@ const useAdmin=(user)=>{
     
     const email=user?.email;
     const accesstoken = localStorage.getItem("accesstoken");
-  const url = `http://localhost:5000/admin/${email}`;
+  const url = `https://stormy-tundra-64733.herokuapp.com/admin/${email}`;
   const config = {
     headers: {
       Authorization: `Bearer ${accesstoken}`,

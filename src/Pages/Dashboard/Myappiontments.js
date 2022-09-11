@@ -17,7 +17,7 @@ const Myappiontments = () => {
   const navigate = useNavigate();
   console.log(appiontments);
   useEffect(() => {
-    const url = `http://localhost:5000/booking?email=${user?.email}`;
+    const url = `https://stormy-tundra-64733.herokuapp.com/booking?email=${user?.email}`;
     const config = {
       headers: {
         Authorization: `Bearer ${accesstoken}`,
@@ -47,7 +47,7 @@ const Myappiontments = () => {
     }
 
     // axios
-    //   .get(`http://localhost:5000/booking?email=${user?.email}`,{
+    //   .get(`https://stormy-tundra-64733.herokuapp.com/booking?email=${user?.email}`,{
     //     headers: {
     //       'Authorization': `Bearer ${localStorage.getItem('accesstoken')}`
     //     }

@@ -5,7 +5,7 @@ import React from "react";
 const Userrow = ({ user, index,refetch }) => {
   const { email, role } = user;
   const accesstoken = localStorage.getItem("accesstoken");
-  const url = `http://localhost:5000/user/admin/${email}`;
+  const url = `https://stormy-tundra-64733.herokuapp.com/user/admin/${email}`;
   const config = {
     headers: {
       Authorization: `Bearer ${accesstoken}`,

@@ -90,7 +90,7 @@ const Navbar = () => {
       <li>
         {user ? (
           <>
-            <button onClick={logout} className="btn btn-ghost ">
+            <button  onClick={logout} className="btn btn-ghost flex justify-start items-start">
               Logout
             </button>
           </>
@@ -136,16 +136,17 @@ const Navbar = () => {
                 aria-expanded="false"
               >
                 {localStorage.photoURL ? (
-                  <div className="avatar ">
-                    <div className="w-12	 rounded-full">
-                      <img src={userDp} alt="" />
+                  <div className="avatar  ">
+                    <div className="w-12 mx-6 rounded-full ">
+                      <img className="" 
+                      src={userDp} alt="" />
                     </div>
                   </div>
                 ) : (
                   user?.photoURL && (
-                    <div className="avatar ">
-                      <div className="w-12	 rounded-full">
-                        <img src={user?.photoURL} alt="" />
+                    <div className="avatar">
+                      <div className="w-12 rounded-full	mx-6 ">
+                        <img className="" src={user?.photoURL} alt="" />
                       </div>
                     </div>
                   )
@@ -263,16 +264,16 @@ const Navbar = () => {
               aria-expanded="false"
             >
               {localStorage.photoURL ? (
-                <div className="avatar ">
+                <div className="avatar  ">
                   <div className="w-12	 rounded-full">
-                    <img src={userDp} alt="" />
+                    <img className="flex justify-items-center" src={userDp} alt="" />
                   </div>
                 </div>
               ) : (
                 user?.photoURL && (
                   <div className="avatar ">
-                    <div className="w-12	 rounded-full">
-                      <img src={user?.photoURL} alt="" />
+                    <div className="w-12 	 rounded-full">
+                      <img className="flex justify-items-center " src={user?.photoURL} alt="" />
                     </div>
                   </div>
                 )

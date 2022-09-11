@@ -17,7 +17,7 @@ const AvailableAppiontment = ({ footer, date, setDate }) => {
     isLoading,
     error,
     refetch,
-  } = useQuery(["availabe", formatedDate],()=> fetch(`http://localhost:5000/available?date=${formatedDate}`).then(res =>
+  } = useQuery(["availabe", formatedDate],()=> fetch(`https://stormy-tundra-64733.herokuapp.com/available?date=${formatedDate}`).then(res =>
   res.json()
 )
 )
@@ -30,7 +30,7 @@ const AvailableAppiontment = ({ footer, date, setDate }) => {
 
   // useEffect(() => {
 
-  //   axios.get(`http://localhost:5000/available?date=${formatedDate}`).then(
+  //   axios.get(`https://stormy-tundra-64733.herokuapp.com/available?date=${formatedDate}`).then(
   //     (response) => {
   //       setServices(response.data);
   //     },
@@ -49,7 +49,7 @@ const AvailableAppiontment = ({ footer, date, setDate }) => {
           <p>Please Select a Day</p>
         )}
       </h2>
-      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 px-5 lg:px-12 my-10">
+      <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-3 px-5 lg:px-12 my-10">
         {services?.map((sr) => (
           <Service setTreatment={setTreatment} key={sr._id} sr={sr}></Service>
         ))}
