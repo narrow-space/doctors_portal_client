@@ -12,7 +12,7 @@ import { useEffect } from "react";
 import { useSendPasswordResetEmail } from "react-firebase-hooks/auth";
 import { toast } from 'material-react-toastify';
 import useToken from "../../Hooks/useToken";
-
+import Swal from 'sweetalert2'
 const Login = () => {
   const [email, setEmail] = useState(null);
   const [sendPasswordResetEmail] =
@@ -30,15 +30,13 @@ const Login = () => {
     if(token) {
     
         navigate(from,{replace:true});
-        toast.success(" ✔️✔️✔️✔️  Login successfully",{
-          position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          })
+        Swal.fire({
+          position: 'top-center',
+          icon: 'success',
+          title: 'Login Successfully',
+          showConfirmButton: false,
+          timer: 2000
+        })
    
     }
   }, [token, navigate, from]);

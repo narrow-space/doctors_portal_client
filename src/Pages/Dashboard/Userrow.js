@@ -1,22 +1,42 @@
 import axios from "axios";
 import { toast } from "material-react-toastify";
 import React from "react";
-
+import Swal from 'sweetalert2'
 const Userrow = ({ user, index,refetch }) => {
   const { email, role } = user;
-  const accesstoken = localStorage.getItem("accesstoken");
-  const url = `https://stormy-tundra-64733.herokuapp.com/user/admin/${email}`;
-  const config = {
-    headers: {
-      Authorization: `Bearer ${accesstoken}`,
-    },
-  };
+
   const makeAdmin = () => {
-    axios.put(url, config).then(
-      (res) => {
-        if(res.data.modifiedCount >0 ){
-            console.log(res);
-            toast.success("admin make Successfully", {
+
+    const swalWithBootstrapButtons = Swal.mixin({
+     
+      customClass: {
+        confirmButton: 'btn btn-success mx-2',
+        cancelButton: 'btn btn-error',
+        
+      },
+      buttonsStyling: false
+    })
+    
+    swalWithBootstrapButtons.fire({
+      title: 'Are you sure?',
+      text: "are you sure make this User for Admin!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Make Admin!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const accesstoken = localStorage.getItem("accesstoken");
+        fetch(`https://stormy-tundra-64733.herokuapp.com/user/admin/${email}`,{
+          method:'PUT',
+          headers:{
+            Authorization:`Bearer ${accesstoken}`,
+          }
+        })
+        .then(res=>{
+          if(res.status ===401){
+            toast.error('Failed to Make an Admin',{
               position: "top-center",
               autoClose: 5000,
               hideProgressBar: false,
@@ -24,25 +44,116 @@ const Userrow = ({ user, index,refetch }) => {
               pauseOnHover: false,
               draggable: true,
               progress: undefined,
-            });
+          })
+          }
+         return  res.json()
+        })
+        .then(data=>{
+          if(data.modifiedCount >0 ){
+           
+           
             refetch()
         }
-      },
-      (error) => {
-        if(error.response.status === 401){
-            toast.error('Failed to Make an admin',{
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: false,
-                draggable: true,
-                progress: undefined,
-            })
-        }
+        })
+  
+        swalWithBootstrapButtons.fire(
+          'Confirm!',
+          'Make an Admin Successfully.',
+          'success'
+        )
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelled',
+          'Making Admin Canceled 😄',
+          'error'
+        )
       }
-    );
-  };
+    })
+  
+
+
+    
+    
+};
+
+const removeUser=()=>{
+  const accesstoken = localStorage.getItem("accesstoken");
+
+  const swalWithBootstrapButtons = Swal.mixin({
+     
+    customClass: {
+      confirmButton: 'btn btn-success mx-2',
+      cancelButton: 'btn btn-error',
+      
+    },
+    buttonsStyling: false
+  })
+  
+  swalWithBootstrapButtons.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this User!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, delete it!',
+    cancelButtonText: 'No, cancel!',
+    reverseButtons: true
+  }).then((result) => {
+    if (result.isConfirmed) {
+      fetch(`https://stormy-tundra-64733.herokuapp.com/user/admin/${email}`,{
+        method:'DELETE',
+        headers:{
+          Authorization:`Bearer ${accesstoken}`,
+        }
+      })
+      .then(res=>{
+        if(res.status ===401){
+          toast.error('Failed to delete user',{
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+        })
+        }
+       return  res.json()
+      })
+      .then(data=>{
+        if(data.deletedCount >0 ){
+         
+         
+          refetch()
+      }
+      })
+
+      swalWithBootstrapButtons.fire(
+        'Deleted!',
+        'User deleted Successfully.',
+        'success'
+      )
+    } else if (
+      /* Read more about handling dismissals below */
+      result.dismiss === Swal.DismissReason.cancel
+    ) {
+      swalWithBootstrapButtons.fire(
+        'Cancelled',
+        'User is safe 😄',
+        'error'
+      )
+    }
+  })
+
+
+
+
+
+
+  
+}
   return (
     <tr key={user._id} class="dark:border-b border-secondary ">
       <td class="px-6 py-4 whitespace-nowrap text-sm font-medium ">
@@ -68,7 +179,7 @@ const Userrow = ({ user, index,refetch }) => {
       </td>
       <td class="text-sm  font-light px-6 py-4 whitespace-nowrap  ">
         <div className="btn-group">
-          <button data-theme="forest" className="btn btn-xs btn-active">
+          <button onClick={removeUser} data-theme="forest" className="btn btn-xs btn-active">
             Remove User
           </button>
         </div>

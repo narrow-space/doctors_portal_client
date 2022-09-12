@@ -96,7 +96,8 @@ const Alluser = () => {
             </div>
           </div>
         </div>
-        <Paginationpage
+
+       < Paginationpage
           showPerPage={showPerPage}
           onpaginationChange={onpaginationChange}
           total={data?.length}
