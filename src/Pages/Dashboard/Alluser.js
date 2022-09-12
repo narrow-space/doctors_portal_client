@@ -18,7 +18,7 @@ const Alluser = () => {
     setPagination({ start: start, end: end });
   };
   const { data, isLoading,refetch } = useQuery("users", async() =>
-    await fetch('https://stormy-tundra-64733.herokuapp.com/alluser', {
+    await fetch('https://dry-falls-30654.herokuapp.com/alluser', {
       method: "GET",
       headers: {
         Authorization: `Bearer ${accesstoken}`,

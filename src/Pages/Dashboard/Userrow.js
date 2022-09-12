@@ -28,7 +28,7 @@ const Userrow = ({ user, index,refetch }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         const accesstoken = localStorage.getItem("accesstoken");
-        fetch(`https://stormy-tundra-64733.herokuapp.com/user/admin/${email}`,{
+        fetch(`https://dry-falls-30654.herokuapp.com/user/admin/${email}`,{
           method:'PUT',
           headers:{
             Authorization:`Bearer ${accesstoken}`,
@@ -102,7 +102,7 @@ const removeUser=()=>{
     reverseButtons: true
   }).then((result) => {
     if (result.isConfirmed) {
-      fetch(`https://stormy-tundra-64733.herokuapp.com/user/admin/${email}`,{
+      fetch(`https://dry-falls-30654.herokuapp.com/user/admin/${email}`,{
         method:'DELETE',
         headers:{
           Authorization:`Bearer ${accesstoken}`,

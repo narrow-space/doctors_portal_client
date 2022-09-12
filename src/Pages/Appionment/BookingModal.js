@@ -29,7 +29,7 @@ const BookingModal = ({ treatment, date, setTreatment, refetch }) => {
 
     // console.log(_id,name,slot,patientname,patienEmail,patientNumber);
 
-    axios.post("https://stormy-tundra-64733.herokuapp.com/booking", bookingInfo).then(
+    axios.post("https://dry-falls-30654.herokuapp.com/booking", bookingInfo).then(
       (res) => {
         const data = res.data;
         console.log(data);

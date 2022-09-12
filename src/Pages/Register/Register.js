@@ -105,7 +105,7 @@ const Register = () => {
     };
 
     axios
-      .post("https://stormy-tundra-64733.herokuapp.com/alluserlist", userInfo)
+      .post("https://dry-falls-30654.herokuapp.com/alluserlist", userInfo)
       .then(
         (res) => {
           const data = res.data;

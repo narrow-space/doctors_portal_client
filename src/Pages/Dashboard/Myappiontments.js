@@ -34,7 +34,7 @@ const Myappiontments = () => {
     "appiontments",
     async () =>
       await fetch(
-        `https://stormy-tundra-64733.herokuapp.com/booking?email=${user?.email}`,
+        `https://dry-falls-30654.herokuapp.com/booking?email=${user?.email}`,
         {
           method: "GET",
           headers: {
@@ -89,7 +89,7 @@ const Myappiontments = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-        .delete(`https://stormy-tundra-64733.herokuapp.com/AppiontmentDelete/${email}`)
+        .delete(`https://dry-falls-30654.herokuapp.com/AppiontmentDelete/${email}`)
         .then(function (response) {
           // handle success
          

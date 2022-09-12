@@ -13,7 +13,7 @@ const useToken = (User) => {
 
     if (email) {
       axios
-        .put(`https://stormy-tundra-64733.herokuapp.com/user/${email}`, currentuser)
+        .put(`https://dry-falls-30654.herokuapp.com/user/${email}`, currentuser)
         .then(function (response) {
           // handle success
           console.log(response.data);

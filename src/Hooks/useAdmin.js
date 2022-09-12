@@ -10,7 +10,7 @@ const useAdmin=(user)=>{
     
     const email=user?.email;
     const accesstoken = localStorage.getItem("accesstoken");
-  const url = `https://stormy-tundra-64733.herokuapp.com/admin/${email}`;
+  const url = `https://dry-falls-30654.herokuapp.com/admin/${email}`;
   const config = {
     headers: {
       Authorization: `Bearer ${accesstoken}`,

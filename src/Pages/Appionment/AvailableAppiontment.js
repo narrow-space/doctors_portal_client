@@ -17,7 +17,7 @@ const AvailableAppiontment = ({ footer, date, setDate }) => {
     isLoading,
     error,
     refetch,
-  } = useQuery(["availabe", formatedDate],()=> fetch(`https://stormy-tundra-64733.herokuapp.com/available?date=${formatedDate}`).then(res =>
+  } = useQuery(["availabe", formatedDate],()=> fetch(`https://dry-falls-30654.herokuapp.com/available?date=${formatedDate}`).then(res =>
   res.json()
 )
 )
@@ -30,7 +30,7 @@ const AvailableAppiontment = ({ footer, date, setDate }) => {
 
   // useEffect(() => {
 
-  //   axios.get(`https://stormy-tundra-64733.herokuapp.com/available?date=${formatedDate}`).then(
+  //   axios.get(`https://dry-falls-30654.herokuapp.com/available?date=${formatedDate}`).then(
   //     (response) => {
   //       setServices(response.data);
   //     },
