@@ -21,7 +21,7 @@ module.exports = {
           "base-100": "#ffffff",
         },
       },
-       "winter","halloween","synthwave"
+      "night","winter","halloween","synthwave","black","light","aqua"
     ],
   },
   plugins: [require("daisyui"), require('tw-elements/dist/plugin')],

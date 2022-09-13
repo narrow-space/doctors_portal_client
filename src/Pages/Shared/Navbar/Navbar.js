@@ -7,7 +7,7 @@ import Swal from 'sweetalert2'
 import { useEffect, useState } from "react";
 const Navbar = () => {
   const [user] = useAuthState(auth);
-  const [theme, setTheme] = useState("null");
+  const [theme, setTheme] = useState(" ");
   const logout = () => {
     signOut(auth);
     localStorage.removeItem("photoURL");
@@ -43,9 +43,7 @@ const Navbar = () => {
 
   useEffect(() => {
     if (
-      localStorage.darktheme === "dark" ||
-      (!("theme" in localStorage) &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
+      localStorage.darktheme === "dark" 
     ) {
       setTheme("dark");
     } else {
@@ -56,6 +54,7 @@ const Navbar = () => {
   useEffect(() => {
     if (theme === "dark") {
       document.documentElement.classList.add("dark");
+      
       localStorage.setItem("darktheme", "dark");
     } else {
       document.documentElement.classList.remove("dark");
@@ -120,7 +119,7 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <div className="navbar-start">
-        <div className="dropdown  dark:bg-slate-900 dark:text-white">
+        <div className="dropdown dark:bg-black   dark:text-white">
           <label tabIndex="0" className="btn btn-ghost lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -139,7 +138,7 @@ const Navbar = () => {
           </label>
           <ul
             tabIndex="0"
-            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 font-normal  dark:bg-slate-900 dark:text-white"
+            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 font-normal dark:bg-black  dark:text-white"
           >
             {Menuitems}
             <div className="dropdown relative">
@@ -172,7 +171,7 @@ const Navbar = () => {
 
               <ul
                 className="
-                dark:bg-slate-900 dark:text-white
+                dark:bg-black   dark:text-white
         dropdown-menu
         min-w-max
         absolute

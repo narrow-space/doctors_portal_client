@@ -44,7 +44,7 @@ const Alluser = () => {
           <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
             <div class="overflow-x-hidden">
               <table class="w-full">
-                <thead class="border-b-4 border-secondary text-2xl dark:text-white  ">
+                <thead class="border-b-4 border-secondary text-2xl dark:bg-black dark:text-white  ">
                   <tr>
                     <th
                       scope="col"
@@ -78,7 +78,7 @@ const Alluser = () => {
                     </th> */}
                   </tr>
                 </thead>
-                <tbody className=" dark:text-white  ">
+                <tbody className="dark:bg-black dark:text-white  ">
                 
                   {data.slice(pagination.start, pagination.end)
                     .map((user, index) => (

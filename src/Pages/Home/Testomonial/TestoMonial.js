@@ -26,7 +26,7 @@ const TestoMonial = () => {
         }
     ]
     return (
-        <section className='px-12 mt-20  dark:bg-slate-900 dark:text-white'>
+        <section className='px-12 mt-20 dark:bg-black   dark:text-white'>
             <div className='flex justify-between'>
               <div><h4 className='text-xl text-secondary font-bold'>Testimonial</h4>
               <h3 className='text-3xl font-normal'>What Our Patients Says</h3>

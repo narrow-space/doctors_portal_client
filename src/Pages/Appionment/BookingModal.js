@@ -68,10 +68,10 @@ const BookingModal = ({ treatment, date, setTreatment, refetch }) => {
   };
 
   return (
-    <div className="dark:bg-slate-900 dark:text-white">
+    <div className="dark:bg-black dark:text-white">
       <input type="checkbox" id="booking-modal" className="modal-toggle" />
       <div className="modal ">
-        <div className="modal-box relative w-96 dark:bg-slate-900 dark:text-white	">
+        <div className="modal-box relative w-96 dark:bg-black dark:text-white	">
           <label
             htmlFor="booking-modal"
             className="btn  text-white btn-sm btn-circle absolute  right-2 top-2"

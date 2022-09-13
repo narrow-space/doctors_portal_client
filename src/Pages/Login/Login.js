@@ -13,6 +13,7 @@ import { useSendPasswordResetEmail } from "react-firebase-hooks/auth";
 import { toast } from 'material-react-toastify';
 import useToken from "../../Hooks/useToken";
 import Swal from 'sweetalert2'
+import axios from "axios";
 const Login = () => {
   const [email, setEmail] = useState(null);
   const [sendPasswordResetEmail] =
@@ -31,7 +32,7 @@ const Login = () => {
     
         navigate(from,{replace:true});
         Swal.fire({
-          position: 'top-center',
+          position: 'center',
           icon: 'success',
           title: 'Login Successfully',
           showConfirmButton: false,
@@ -81,10 +82,25 @@ const Login = () => {
     return <Loader />;
   }
 
+  if(gUser){
+    const gUserinfo={
+      name: gUser?.user?.displayName,
+      email: gUser?.user?.email,
+      photoURL: gUser?.user?.photoURL,
+ 
+     }
+     
+ 
+      axios.put('https://dry-falls-30654.herokuapp.com/alluserinfo',gUserinfo).then((res)=>{
+      const data=res.data;
+      console.log(data);
+    })
+   }
+
   return (
-    <div className="flex h-screen justify-center items-center dark:bg-slate-900 dark:text-white ">
-      <div className="card w-96 dark:bg-slate-900 dark:text-white shadow-xl">
-        <div className="card-body  dark:bg-slate-900 dark:text-white ">
+    <div className="flex h-screen justify-center items-center dark:bg-black dark:text-white ">
+      <div className="card w-96 dark:bg-black dark:text-white shadow-xl">
+        <div className="card-body dark:bg-black  dark:text-white ">
           <div className="flex flex-col w-full border-opacity-50">
             <h1 className="text-xl text-center">Login</h1>
             <form onSubmit={handleSubmit(onSubmit)}>

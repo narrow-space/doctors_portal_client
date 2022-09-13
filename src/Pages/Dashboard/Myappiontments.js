@@ -132,8 +132,8 @@ const Myappiontments = () => {
       <div class="sm:-mx-6 lg:-mx-8">
         <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
           <div class="overflow-x-hidden">
-            <table class="w-full">
-              <thead class="border-b-4 border-secondary text-2xl dark:text-white  ">
+           {appiontments.length? <table class="w-full">
+              <thead class="border-b-4 border-secondary text-2xl dark:bg-black dark:text-white  ">
                 <tr>
                   <th
                     scope="col"
@@ -167,7 +167,7 @@ const Myappiontments = () => {
                   </th>
                 </tr>
               </thead>
-              <tbody className=" dark:text-white  ">
+              <tbody className="dark:bg-black dark:text-white  ">
                 {appiontments.slice(pagination.start, pagination.end).map((a, index) => (
                   <>
                     <tr key={index} class="dark:border-b border-secondary ">
@@ -198,16 +198,18 @@ const Myappiontments = () => {
                   </>
                 ))}
               </tbody>
-            </table>
+            </table>:<div className="flex justify-center items-center h-screen overflow-hidden">
+            <h2 className="text-2xl text-white  ">No APPIONTMENTS YET!! 😢</h2>
+              </div>}
           </div>
         </div>
       </div>
-    <Paginationpage
+    {appiontments.length>=4?<Paginationpage
      showPerPage={showPerPage}
      onpaginationChange={onpaginationChange}
      total={appiontments?.length}
      refetch={refetch}
-     ></Paginationpage>
+     ></Paginationpage>:null}
     </div>
   );
 };

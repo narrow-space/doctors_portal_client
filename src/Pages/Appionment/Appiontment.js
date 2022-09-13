@@ -47,9 +47,9 @@ const Appiontment = () => {
           <div className="w-auto">
             <Calendar
           
-         
+            
         
-              className="font-serif p-3 dark:bg-slate-900 dark:text-white "
+              className="font-serif p-3 dark:bg-black  dark:text-white "
               onChange={setDate}
               value={date}
             />

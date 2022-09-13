@@ -16,9 +16,10 @@ import MyHistory from "./Pages/Dashboard/MyHistory/MyHistory";
 import 'react-day-picker/dist/style.css';
 import Alluser from "./Pages/Dashboard/Alluser";
 import RequireAdmin from "./Pages/Login/RequireAdmin";
+import Userinfo from "./Pages/Dashboard/Userinfo";
 function App() {
   return (
-    <div   className="bg:light dark:bg-slate-900 dark:text-white">
+    <div    className="bg:light dark:bg-black dark:text-white">
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -50,6 +51,7 @@ function App() {
          <Route path="history" element={<MyHistory/>}></Route>
          
          <Route path="alluser" element={<RequireAdmin><Alluser/></RequireAdmin>}></Route>
+         <Route path="userinfo" element={<RequireAdmin><Userinfo/></RequireAdmin>}></Route>
          
 
         </Route>

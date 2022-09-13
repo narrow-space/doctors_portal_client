@@ -15,6 +15,7 @@ import { toast } from "material-react-toastify";
 import useToken from "../../Hooks/useToken";
 import axios from "axios";
 import { Line, Circle } from 'rc-progress';
+import Swal from "sweetalert2";
 
 const Register = () => {
   const [image, setImage] = useState(null);
@@ -30,6 +31,8 @@ const Register = () => {
   const navigate = useNavigate();
 
   const [token] = useToken(user || gUser);
+
+ 
 
   const { register, handleSubmit, formState } = useForm({
     mode: "onChange", // I want to change it to onBlur
@@ -95,27 +98,22 @@ const Register = () => {
   }
 
   const onSubmit = async (data) => {
-    await createUserWithEmailAndPassword(data.email, data.password, data.name);
-
-    await updateProfile({ displayName: data.name, photoURL: url });
     const userInfo = {
       name: data.name,
       email: data.email,
       photoURL: url,
     };
+    console.log(userInfo);
+    
+    await createUserWithEmailAndPassword(data.email, data.password, data.name);
 
-    axios
-      .post("https://dry-falls-30654.herokuapp.com/alluserlist", userInfo)
-      .then(
-        (res) => {
-          const data = res.data;
-          console.log(data);
-        },
-
-        (error) => {
-          console.log(error);
-        }
-      );
+    await updateProfile({ displayName: data.name, photoURL: url });
+   
+    axios.put('https://dry-falls-30654.herokuapp.com/alluserinfo',userInfo).then((res)=>{
+      const data=res.data;
+      console.log(data);
+    })
+    
   };
 
   useEffect(() => {
@@ -123,14 +121,13 @@ const Register = () => {
       navigate("/appiontment");
 
       // window.location.reload();
-      toast.success("User Registration Successfully", {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Registration Successfully',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar:"true"
       });
     }
   }, [token, navigate]);
@@ -149,13 +146,29 @@ const Register = () => {
     return <Loader />;
   }
 
-  const handleImgsavefromLocalStorage = () => {
+  const handleImgsavefromLocalStorage = async() => {
     localStorage.setItem("photoURL", url);
+    
   };
+
+   if(gUser){
+    const gUserinfo={
+      name: gUser?.user?.displayName,
+      email: gUser?.user?.email,
+      photoURL: gUser?.user?.photoURL,
+ 
+     }
+     
+ 
+      axios.put('https://dry-falls-30654.herokuapp.com/alluserinfo',gUserinfo).then((res)=>{
+      const data=res.data;
+      console.log(data);
+    })
+   }
 
   return (
     <div className="flex justify-center items-center ">
-      <div className="card w-96  dark:bg-slate-900 dark:text-white shadow-2xl">
+      <div className="card w-96   dark:text-white shadow-2xl">
         <div className="card-body">
           <div className="flex flex-col w-full border-opacity-50">
             <h1 className="text-xl text-center">Sign Up</h1>
@@ -327,7 +340,13 @@ const Register = () => {
             </p>
             <div className="divider">OR</div>
             <button
-              onClick={() => signInWithGoogle()}
+              onClick={
+                () => {
+                  signInWithGoogle();
+                  // sendgUserInfo()
+                }
+              
+              }
               className="btn dark:btn-close-white btn-outline"
             >
               Continue with Google

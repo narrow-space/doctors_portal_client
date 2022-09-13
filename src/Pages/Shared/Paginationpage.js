@@ -36,13 +36,13 @@ const Paginationpage = ({ showPerPage, onpaginationChange, total,refetch }) => {
   return (
     <div className="flex justify-center items-center mt-8">
       <div className="btn-group ">
-        {/* <button
+        <button
           data-theme="halloween"
           onClick={() => ButtonType("prev")}
-          className="btn btn-active mx-3"
+          className="btn btn-sm btn-active mx-3"
         >
           Previous page
-        </button> */}
+        </button>
       </div>
       <div className="btn-group ">
         { new Array(numberOfButtons).fill(" ").map((el, index) => (
@@ -58,13 +58,13 @@ const Paginationpage = ({ showPerPage, onpaginationChange, total,refetch }) => {
         ))}
       </div>
       <div className="btn-group grid grid-cols-1 mx-3">
-        {/* <button
+        <button
           data-theme="halloween"
           onClick={() => ButtonType("next")}
-          className="btn btn-md btn-active"
+          className="btn btn-sm btn-active"
         >
           Next
-        </button> */}
+        </button>
       </div>
     </div>
   );

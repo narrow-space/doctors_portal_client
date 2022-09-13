@@ -48,7 +48,7 @@ const RequireAuth = ({ children }) => {
   if (message) {
     toastify = (
       <div
-        className=" dark:bg-slate-900 dark:text-wh bg-green-500 shadow-lg mx-auto w-96 max-w-full text-sm pointer-events-auto bg-clip-padding rounded-lg block mb-3"
+        className="   bg-green-500 shadow-lg mx-auto w-96 max-w-full text-sm pointer-events-auto bg-clip-padding rounded-lg block mb-3"
         id="static-example"
         role="alert"
         aria-live="assertive"

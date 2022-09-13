@@ -179,9 +179,11 @@ const removeUser=()=>{
       </td>
       <td class="text-sm  font-light px-6 py-4 whitespace-nowrap  ">
         <div className="btn-group">
-          <button onClick={removeUser} data-theme="forest" className="btn btn-xs btn-active">
-            Remove User
-          </button>
+         
+         <button disabled={  email === "hximranhasan@gmail.com"} onClick={removeUser} data-theme="forest" className="btn btn-xs btn-active">
+          Remove User
+        </button>
+         
         </div>
       </td>
     </tr>
