@@ -128,10 +128,9 @@ const Myappiontments = () => {
   };
 
   return (
-    <div class="flex flex-col lg:overflow-hidden">
-      <div class="sm:-mx-6 lg:-mx-8">
-        <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-          <div class="overflow-x-hidden">
+    
+        <div class="">
+          <div class="overflow-x-auto w-full">
            {appiontments.length? <table class="w-full">
               <thead class="border-b-4 border-secondary text-2xl dark:bg-black dark:text-white  ">
                 <tr>
@@ -201,8 +200,7 @@ const Myappiontments = () => {
             </table>:<div className="flex justify-center items-center h-screen overflow-hidden">
             <h2 className="text-2xl text-white  ">No APPIONTMENTS YET!! 😢</h2>
               </div>}
-          </div>
-        </div>
+         
       </div>
     {appiontments.length>=4?<Paginationpage
      showPerPage={showPerPage}

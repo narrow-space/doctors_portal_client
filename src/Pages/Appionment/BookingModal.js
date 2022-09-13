@@ -34,7 +34,7 @@ const BookingModal = ({ treatment, date, setTreatment, refetch }) => {
         const data = res.data;
         console.log(data);
         if (res.data.success) {
-          toast(`Appiontment is set, ${formattedDate} at ${slot}`, {
+          toast(`Appiontment is set,${formattedDate}at${slot}`, {
             position: "top-center",
             autoClose: 5000,
             hideProgressBar: false,
@@ -45,7 +45,7 @@ const BookingModal = ({ treatment, date, setTreatment, refetch }) => {
           });
         } else {
           toast.error(
-            `Already have an appiontment on, ${data.booking?.date} at ${data.booking?.slot}`,
+            `Already have an appiontment on,${data.booking?.date}at${data.booking?.slot}`,
             {
               position: "top-center",
               autoClose: 5000,

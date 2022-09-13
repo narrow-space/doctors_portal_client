@@ -162,6 +162,7 @@ const removeUser=()=>{
       <td class="text-sm font-light px-6 py-4 whitespace-nowrap">
         {user.email}
       </td>
+      
       <td class="text-sm  font-light px-6 py-4 whitespace-nowrap ">
         <div className="btn-group">
           {role === "admin" ? (
