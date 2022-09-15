@@ -68,7 +68,7 @@ const BookingModal = ({ treatment, date, setTreatment, refetch }) => {
   };
 
   return (
-    <div className="dark:bg-black dark:text-white">
+    <div className="dark:bg-black dark:text-white overflow-x-hidden">
       <input type="checkbox" id="booking-modal" className="modal-toggle" />
       <div className="modal ">
         <div className="modal-box relative w-80 dark:bg-black dark:text-white	">

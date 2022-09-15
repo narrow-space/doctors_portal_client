@@ -8,9 +8,9 @@ const axios = require("axios");
 
 const AvailableAppiontment = ({ footer, date, setDate }) => {
   const [treatment, setTreatment] = useState(null);
-  const selectedDate = "Please Select a Day";
+ 
   const formatedDate = format(date, "PP");
-
+  let selectedDate = "Please Select a Day";
   const {
     
     data: services,
@@ -22,33 +22,20 @@ const AvailableAppiontment = ({ footer, date, setDate }) => {
 )
 )
 
+console.log(date);
 
-
-  if (isLoading) {
-    return <Loader />;
-  }
-
-  // useEffect(() => {
-
-  //   axios.get(`https://dry-falls-30654.herokuapp.com/available?date=${formatedDate}`).then(
-  //     (response) => {
-  //       setServices(response.data);
-  //     },
-  //     (error) => {
-  //       console.log(error);
-  //     }
-  //   );
-  // }, [formatedDate]);
+  
 
   return (
-    <div className="my-10">
-      <h2 className="text-center text-secondary font-semibold">
-        {date ? (
-          <p>Available Appiontment on {format(date, "PPP")}.</p>
-        ) : (
-          <p>Please Select a Day</p>
-        )}
-      </h2>
+   <>
+   <div className="my-10">
+      <div className="text-center text-secondary font-semibold">
+       
+         <p>Available Appiontment on {format(date, "PP")}</p>
+  
+         
+ 
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-3 px-5 lg:px-12 my-10">
         {services?.map((sr) => (
           <Service setTreatment={setTreatment} key={sr._id} sr={sr}></Service>
@@ -63,6 +50,8 @@ const AvailableAppiontment = ({ footer, date, setDate }) => {
         ></BookingModal>
       )}
     </div>
+   
+   </>
   );
 };
 

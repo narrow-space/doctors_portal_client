@@ -2,10 +2,17 @@ import React, { useEffect, useState } from "react";
 import chair from "../../assets/images/chair.png";
 import AvailableAppiontment from "./AvailableAppiontment";
 import Treatmentservices from "./Treatmentservices";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
 
-const Appiontment = () => {
+import moment from "moment";
+
+import { DayPicker, ClassNames } from "react-day-picker";
+import "react-day-picker/dist/style.css";
+
+import styles from "react-day-picker/dist/style.css";
+import { format } from "date-fns";
+
+const Appiontment = ({ setTheme, theme }) => {
+  const [date, setDate] = useState(moment().toDate());
   const treatServices = [
     {
       _id: 1,
@@ -33,7 +40,64 @@ const Appiontment = () => {
     },
   ];
 
-  const [date, setDate] = useState(new Date());
+  const css = `
+
+  .my-selected:not([disabled]) { 
+    font-weight:bold; 
+    border:2px solid blue;
+    background-color:blue;
+  }
+  .my-selected:hover:not([disabled]) { 
+    border-color:red;
+    background-color:blue;
+  }
+  .my-today { 
+    font-weight: bold;
+    font-size: 140%; 
+    color: dark;
+    background-color:blue
+  }
+  
+
+  
+ 
+  .rdp-button:not([disabled]) {
+    cursor: pointer;
+   
+  }
+  
+  .rdp-button:hover:not([disabled]) {
+    background-color:blue;
+    border: 2px solid blue;
+    font-weight: bold;
+    font-size: 140%; 
+  }
+ 
+ 
+  
+ 
+
+  .custom-head { color: white }
+  
+  
+  .rdp-tbody {
+   
+    color:white
+    
+  }
+  .rdp-nav {
+    color:red
+  }
+  .rdp-head {
+    color:white
+  }
+  
+`;
+
+  const classNames: ClassNames = {
+    ...styles,
+    head: "custom-head",
+  };
 
   return (
     <div>
@@ -45,13 +109,40 @@ const Appiontment = () => {
             alt=""
           />
           <div className="w-auto">
-            <Calendar
+            {theme === "dark" ? (
+              <style>{css}</style>
+            ) : (
+              <style>{`.custom-head { color: black }
+         
+         .my-selected:not([disabled]) { 
+          font-weight:bold; 
+          border:2px solid red;
+        }
+        .my-selected:hover:not([disabled]) { 
+          border-color:red;
+          color:blue;
+        }
+        .my-today { 
+          font-weight:bold;
+          font-size:140%; 
+          color:blue;
           
-            
-        
-              className="font-serif p-3 dark:bg-black  dark:text-white "
-              onChange={setDate}
-              value={date}
+          
+        }
+         
+         `}</style>
+            )}
+            <DayPicker
+              mode="single"
+              selected={date}
+              onSelect={setDate}
+              modifiersClassNames={{
+                selected: "my-selected",
+                today: "my-today",
+              }}
+              modifiersStyles={{
+                disabled: { fontSize: "75%" },
+              }}
             />
           </div>
         </div>
@@ -63,13 +154,36 @@ const Appiontment = () => {
         ))}
       </div>
       <div>
-        <AvailableAppiontment
-          date={date}
-          setDate={setDate}
-        ></AvailableAppiontment>
+        {date ? (
+          <AvailableAppiontment
+            date={date}
+            setDate={setDate}
+          ></AvailableAppiontment>
+        ) : (
+          <p className="text-center text-secondary font-semibold">
+            Please Pick a Day 📅
+          </p>
+        )}
       </div>
     </div>
   );
 };
 
 export default Appiontment;
+//  .my-selected:not([disabled]) {
+//     font-weight: bold;
+//     border: 2px solid currentColor;
+//     background-color: red;
+//   }
+//   .my-selected:hover:not([disabled]) {
+//     border-color: blue;
+//     color: blue;
+//     background-color: red;
+//   }
+//   .my-today {
+//     font-weight: bold;
+//     font-size: 140%;
+//     color: white;
+//     border: 2px solid currentColor;
+
+//   }

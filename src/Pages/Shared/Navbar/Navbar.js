@@ -5,9 +5,9 @@ import { signOut } from "firebase/auth";
 import { toast } from "material-react-toastify";
 import Swal from 'sweetalert2'
 import { useEffect, useState } from "react";
-const Navbar = () => {
+const Navbar = ({theme,setTheme}) => {
   const [user] = useAuthState(auth);
-  const [theme, setTheme] = useState(" ");
+ 
   const logout = () => {
     signOut(auth);
     localStorage.removeItem("photoURL");
