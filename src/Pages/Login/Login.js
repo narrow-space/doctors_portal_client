@@ -10,7 +10,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Loader from "../Shared/Loader";
 import { useEffect } from "react";
 import { useSendPasswordResetEmail } from "react-firebase-hooks/auth";
-import { toast } from 'material-react-toastify';
 import useToken from "../../Hooks/useToken";
 import Swal from 'sweetalert2'
 import axios from "axios";

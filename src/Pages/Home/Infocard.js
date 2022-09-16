@@ -1,7 +1,7 @@
 import React from 'react';
 
-
-const Infocard = ({img,bg,cardTitle}) => {
+import { motion } from 'framer-motion';
+const Infocard = ({img,bg,cardTitle,}) => {
     return (
         <div className={`${bg} card lg:card-side shadow-xl text-white `}>
   <figure className='px-5 pt-3'><img className='sm:w-22' src={img} alt="Album"/></figure>

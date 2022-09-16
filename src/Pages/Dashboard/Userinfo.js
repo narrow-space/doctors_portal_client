@@ -24,7 +24,7 @@ const Userinfo = () => {
         setUserInfo(res.data);
     })
   },[])
-
+  console.log(typeof(userInfo));
 
   const handlethemeswitcher=()=>{
     setDarktheme(darktheme === "night" ? "light" : "night");

@@ -1,8 +1,13 @@
+import { motion } from 'framer-motion';
 import React from 'react';
+import { animationX } from '../../Shared/motion';
 
-const Service = ({Service}) => {
+const Service = ({Service,delay=0}) => {
     return (
-        <div className="card shadow-xl ">
+        <motion.div 
+         {...animationX}
+         
+        className="card shadow-xl ">
   <figure className="px-10 pt-10 ">
     <img className='w-28 h-28 rounded-xl'  src={Service.img} alt="Shoes" />
   </figure>
@@ -11,7 +16,7 @@ const Service = ({Service}) => {
     <p>{Service.description}</p>
     
   </div>
-</div>
+</motion.div>
     );
 };
 

@@ -167,27 +167,27 @@ const Myappiontments = () => {
                 </tr>
               </thead>
               <tbody className="dark:bg-black dark:text-white  ">
-                {appiontments.slice(pagination.start, pagination.end).map((a, index) => (
+                {Object.entries(appiontments).slice(pagination.start, pagination.end).map((a, index) => (
                   <>
                     <tr key={index} class="dark:border-b border-secondary ">
                       <td class="px-6 py-4 whitespace-nowrap text-sm font-medium ">
                         {index + 1}
                       </td>
                       <td class="text-sm font-light px-6 py-4 whitespace-nowrap">
-                        {a.patientName}
+                        {a[1].patientName}
                       </td>
                       <td class="text-sm  font-light px-6 py-4 whitespace-nowrap">
-                        {a.treatment}
+                        {a[1].treatment}
                       </td>
                       <td class="text-sm  font-light px-6 py-4 whitespace-nowrap">
-                        {a.slot}
+                        {a[1].slot}
                       </td>
                       <td class="text-sm  font-light px-6 py-4 whitespace-nowrap">
-                        {a.number}
+                        {a[1].number}
                       </td>
                       <td class="text-sm  font-light px-6 py-4 whitespace-nowrap">
                         <button
-                          onClick={() => removeAppiontment(a.email)}
+                          onClick={() => removeAppiontment(a[1].email)}
                           className="btn btn-xs btn-accent"
                         >
                           Delete Appiontment
@@ -198,7 +198,7 @@ const Myappiontments = () => {
                 ))}
               </tbody>
             </table>:<div className="flex justify-center items-center h-screen overflow-hidden">
-            <h2 className="text-2xl text-white  ">No APPIONTMENTS YET!! 😢</h2>
+            <h2 className="text-2xl dark:text-white  ">No APPIONTMENTS YET!! 😢</h2>
               </div>}
          
       </div>

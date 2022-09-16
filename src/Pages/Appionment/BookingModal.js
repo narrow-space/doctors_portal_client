@@ -4,7 +4,8 @@ import React from "react";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
-import { toast } from "material-react-toastify";
+import toast, { Toaster } from 'react-hot-toast';
+
 const BookingModal = ({ treatment, date, setTreatment, refetch }) => {
   const [user] = useAuthState(auth);
   const { _id, name, slots } = treatment;
@@ -34,28 +35,11 @@ const BookingModal = ({ treatment, date, setTreatment, refetch }) => {
         const data = res.data;
         console.log(data);
         if (res.data.success) {
-          toast(`Appiontment is set,${formattedDate}at${slot}`, {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
+          toast.success(`Appiontment is set,${formattedDate}at${slot}`)
+          
         } else {
-          toast.error(
-            `Already have an appiontment on,${data.booking?.date}at${data.booking?.slot}`,
-            {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            }
-          );
+          toast.error(`Already have an appiontment on,${data.booking?.date}at${data.booking?.slot}`)
+         
         }
       },
 
@@ -68,7 +52,7 @@ const BookingModal = ({ treatment, date, setTreatment, refetch }) => {
   };
 
   return (
-    <div className="dark:bg-black dark:text-white overflow-x-hidden">
+    <div className="dark:bg-black dark:text-white ">
       <input type="checkbox" id="booking-modal" className="modal-toggle" />
       <div className="modal ">
         <div className="modal-box relative w-80 dark:bg-black dark:text-white	">

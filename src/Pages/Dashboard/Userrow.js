@@ -1,6 +1,6 @@
 import axios from "axios";
-import { toast } from "material-react-toastify";
 import React from "react";
+import toast from "react-hot-toast";
 import Swal from 'sweetalert2'
 const Userrow = ({ user, index,refetch }) => {
   const { email, role } = user;
@@ -36,15 +36,7 @@ const Userrow = ({ user, index,refetch }) => {
         })
         .then(res=>{
           if(res.status ===401){
-            toast.error('Failed to Make an Admin',{
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: false,
-              draggable: true,
-              progress: undefined,
-          })
+          toast.error('Failed to make an Admin')
           }
          return  res.json()
         })
@@ -110,15 +102,8 @@ const removeUser=()=>{
       })
       .then(res=>{
         if(res.status ===401){
-          toast.error('Failed to delete user',{
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
-            progress: undefined,
-        })
+          toast.error("Failed to delete user")
+         
         }
        return  res.json()
       })

@@ -11,7 +11,6 @@ import auth, { storage } from "../../firebase.init";
 import { Link, useNavigate } from "react-router-dom";
 import Loader from "../Shared/Loader";
 
-import { toast } from "material-react-toastify";
 import useToken from "../../Hooks/useToken";
 import axios from "axios";
 import { Line, Circle } from 'rc-progress';

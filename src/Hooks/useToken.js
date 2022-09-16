@@ -8,12 +8,12 @@ const useToken = (User) => {
   useEffect(() => {
     const email = User?.user?.email;
 
-    const currentuser = { email: email,};
+    const currentuser = { email: email};
     console.log(currentuser);
 
     if (email) {
       axios
-        .put(`https://dry-falls-30654.herokuapp.com/user/${email}`, currentuser)
+        .put(`https://dry-falls-30654.herokuapp.com/user/${email}`,currentuser)
         .then(function (response) {
           // handle success
           console.log(response.data);

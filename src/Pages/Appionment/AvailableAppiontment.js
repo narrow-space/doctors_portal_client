@@ -23,7 +23,9 @@ const AvailableAppiontment = ({ footer, date, setDate }) => {
 )
 
 console.log(date);
-
+if(isLoading){
+  return <Loader></Loader>
+}
   
 
   return (

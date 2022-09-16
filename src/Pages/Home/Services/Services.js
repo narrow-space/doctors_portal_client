@@ -18,7 +18,7 @@ const Services = () => {
                ,
         {
             _id:2,
-            name: 'Fluoride Treatment',
+            name: 'Cavity Protection',
             description: 'Lorem Ipsum is simply dummy printing and typesetting indust Ipsum has been the',
             img:cavity
            
@@ -26,7 +26,7 @@ const Services = () => {
                            },
         {
             _id:3,
-            name: 'Fluoride Treatment',
+            name: 'Teeth Whitening',
             description: 'Lorem Ipsum is simply dummy printing and typesetting indust Ipsum has been the',
             img:teethwhitening
                    

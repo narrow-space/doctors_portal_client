@@ -7,6 +7,7 @@ import moment from "moment";
 
 import { DayPicker, ClassNames } from "react-day-picker";
 import "react-day-picker/dist/style.css";
+import { motion } from "framer-motion";
 
 import styles from "react-day-picker/dist/style.css";
 import { format } from "date-fns";
@@ -39,7 +40,11 @@ const Appiontment = ({ setTheme, theme }) => {
       name: "Oral Surgery",
     },
   ];
-
+  const spring = {
+    type: "spring",
+    damping: 10,
+    stiffness: 100,
+  };
   const css = `
 
   .my-selected:not([disabled]) { 
@@ -103,16 +108,28 @@ const Appiontment = ({ setTheme, theme }) => {
     <div>
       <div className="hero min-h-screen bg-[url('/src/assets/images/bg.png')] bg-cover bg-center bg-no-repeat">
         <div className="hero-content flex-col lg:flex-row-reverse">
-          <img
+          <motion.img
+            initial={{
+              y: "-100%",
+              opacity: "0",
+            }}
+            whileInView={{
+              y: 0,
+              opacity: 1,
+            }}
+            transition={{
+              delay: 0.5,
+            }}
             src={chair}
-            className="lg:w-[500px] rounded-lg shadow-2xl"
+            className="lg:w-[500px] rounded-lg shadow-2xl mx-10"
             alt=""
           />
           <div className="w-auto">
             {theme === "dark" ? (
               <style>{css}</style>
             ) : (
-              <style>{`.custom-head { color: black }
+              <style>
+                {`.custom-head { color: black }
          
          .my-selected:not([disabled]) { 
           font-weight:bold; 
@@ -130,20 +147,35 @@ const Appiontment = ({ setTheme, theme }) => {
           
         }
          
-         `}</style>
+         `}
+              </style>
             )}
-            <DayPicker
-              mode="single"
-              selected={date}
-              onSelect={setDate}
-              modifiersClassNames={{
-                selected: "my-selected",
-                today: "my-today",
+            <motion.div
+              initial={{
+                x: "-100%",
+                opacity: "0",
               }}
-              modifiersStyles={{
-                disabled: { fontSize: "75%" },
+              whileInView={{
+                x: 0,
+                opacity: 1,
               }}
-            />
+              transition={{
+                delay: 0.4,
+              }}
+            >
+              <DayPicker
+                mode="single"
+                selected={date}
+                onSelect={setDate}
+                modifiersClassNames={{
+                  selected: "my-selected",
+                  today: "my-today",
+                }}
+                modifiersStyles={{
+                  disabled: { fontSize: "75%" },
+                }}
+              />
+            </motion.div>
           </div>
         </div>
       </div>
@@ -170,20 +202,3 @@ const Appiontment = ({ setTheme, theme }) => {
 };
 
 export default Appiontment;
-//  .my-selected:not([disabled]) {
-//     font-weight: bold;
-//     border: 2px solid currentColor;
-//     background-color: red;
-//   }
-//   .my-selected:hover:not([disabled]) {
-//     border-color: blue;
-//     color: blue;
-//     background-color: red;
-//   }
-//   .my-today {
-//     font-weight: bold;
-//     font-size: 140%;
-//     color: white;
-//     border: 2px solid currentColor;
-
-//   }

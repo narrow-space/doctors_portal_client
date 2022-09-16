@@ -27,11 +27,14 @@ const Alluser = () => {
         },
       }).then((res) => res.json())
   );
+ 
+ console.log(data);
 
   if (isLoading) {
     return <Loader />;
   }
-
+  
+ 
   return (
     <div >
       <div className="overflow-x-auto w-full">
@@ -58,14 +61,17 @@ const Alluser = () => {
             </tr>
           </thead>
           <tbody className="dark:bg-black dark:text-white  ">
-            {data.slice(pagination.start, pagination.end).map((user, index) => (
-              <Userrow
-                key={user._id}
-                user={user}
-                index={index}
-                refetch={refetch}
-              ></Userrow>
-            ))}
+            { Object.entries(data).slice(pagination.start, pagination.end).map((user, index) => {
+             
+              
+               return <Userrow
+                  key={user[1]._id}
+                  user={user[1]}
+                  index={index}
+                  refetch={refetch}
+                ></Userrow>
+              
+            })}
           </tbody>
         </table>
       </div>

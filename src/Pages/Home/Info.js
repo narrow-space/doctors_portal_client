@@ -3,16 +3,61 @@ import Infocard from './Infocard';
 import clock from  "../../assets/icons/clock.svg"
 import marker from  "../../assets/icons/marker.svg"
 import phone from  "../../assets/icons/phone.svg"
-import infocss from './info.css'
+import { animationX } from '../Shared/motion';
 
+import { motion } from 'framer-motion';
 
 
 const Info = () => {
     return (
-        <div className=' info grid grid-cols-1 lg:grid-cols-3 px-12  gap-4'>
-           <Infocard img={clock}  bg="bg-gradient-to-r from-secondary to-accent" cardTitle="Opening Hour"></Infocard>
+        <div className=' info grid grid-cols-1 lg:grid-cols-3 px-12  gap-4 mt-20'>
+          <motion.div
+            initial= {{
+                x: "-100%",
+                opacity: "0",
+              }}
+              whileInView= {{
+                x: 0,
+                opacity: 1
+              }}
+              transition= {{
+                delay: 0.4,
+              }}
+          >
+
+          <Infocard 
+            
+            img={clock}  bg="bg-gradient-to-r from-secondary to-accent" cardTitle="Opening Hour"></Infocard>
+          </motion.div>
+
+           <motion.div
+           initial= {{
+            x: "-100%",
+            opacity: "0",
+          }}
+          whileInView= {{
+            x: 0,
+            opacity: 1
+          }}
+          transition= {{
+            delay: 0.5,
+          }}>
            <Infocard img={marker} bg="bg-primary" cardTitle="Visit Our Location"></Infocard>
+           </motion.div>
+           <motion.div
+           initial= {{
+            x: "-100%",
+            opacity: "0",
+          }}
+          whileInView= {{
+            x: 0,
+            opacity: 1
+          }}
+          transition= {{
+            delay: 0.6,
+          }}>
            <Infocard img={phone}  bg="bg-gradient-to-r from-secondary to-accent" cardTitle="Contact Us Now"></Infocard>
+           </motion.div>
         </div>
     );
 };
